@@ -1,0 +1,329 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Swagger API documentation Notebook",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "eugene_1025@mail.ru"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
+    },
+    "paths": {
+        "/api/v1/notebook": {
+            "get": {
+                "tags": [
+                    "Notebook All"
+                ],
+                "summary": "Get all notebook for REST API",
+                "description": "Get list of notebook",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "the page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "order  accepts 'asc' or 'desc'",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Store"
+                ],
+                "summary": "Create yet another notebook record",
+                "operationId": "notebookCreate",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NotebookStore"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotebookStore"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notebook/{id}": {
+            "get": {
+                "tags": [
+                    "Show "
+                ],
+                "description": "For valid response try integer IDs with value >= 1  Notebook values will generated exceptions",
+                "operationId": "notebookShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of pet that needs to be fetched",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotebookShow"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotebookShow"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Notebook not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Update"
+                ],
+                "summary": "Update Notebook by ID",
+                "operationId": "NotebookUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of Notebook",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NotebookStore"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotebookShow"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Notebook supplied"
+                    },
+                    "404": {
+                        "description": "Notebook not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Delete"
+                ],
+                "summary": "Delete purchase notebook by ID",
+                "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+                "operationId": "NotebookDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the notebook that needs to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "notebook not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NotebookShow": {
+                "title": "Notebook show",
+                "description": "Notebook show",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Unique ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "fio": {
+                        "title": "fio",
+                        "description": "fio",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "telephone": {
+                        "title": "telephone",
+                        "description": "telephone",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "email",
+                        "type": "string",
+                        "default": "yy@ff.com"
+                    },
+                    "datebirth": {
+                        "title": "datebirth",
+                        "description": "datebirth",
+                        "type": "string",
+                        "format": "date",
+                        "default": ""
+                    },
+                    "img": {
+                        "title": "img",
+                        "description": "img",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "text": {
+                        "title": "text",
+                        "description": "text",
+                        "type": "string",
+                        "default": ""
+                    }
+                },
+                "type": "object"
+            },
+            "NotebookStore": {
+                "title": "Notebook store",
+                "description": "Notebook store",
+                "properties": {
+                    "fio": {
+                        "title": "fio",
+                        "description": "fio",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "telephone": {
+                        "title": "telephone",
+                        "description": "telephone",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "email",
+                        "type": "string",
+                        "default": "yy@ff.com"
+                    },
+                    "datebirth": {
+                        "title": "datebirth",
+                        "description": "datebirth",
+                        "type": "string",
+                        "format": "date",
+                        "default": ""
+                    },
+                    "img": {
+                        "title": "img",
+                        "description": "img",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "text": {
+                        "title": "text",
+                        "description": "text",
+                        "type": "string",
+                        "default": ""
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
