@@ -1,4 +1,4 @@
-в терминале после установки<br>
+в терминале после установки:<br>
 docker-compose exec app php artisan key:generate<br>
 docker-compose exec app php artisan config:cache<br>
 docker-compose exec app php artisan migrate<br>
