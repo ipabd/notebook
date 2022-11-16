@@ -4,6 +4,10 @@ docker-compose exec app php artisan config:cache<br>
 docker-compose exec app php artisan migrate<br>
 docker-compose exec app php artisan db:seed<br>
 
+в браузере
+http://localhost:8098
+http://localhost:8098/api/documentation<br>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
