@@ -4,7 +4,7 @@ docker-compose exec app php artisan config:cache<br>
 docker-compose exec app php artisan migrate<br>
 docker-compose exec app php artisan db:seed<br>
 
-в браузере
+в браузере<br>
 http://localhost:8098<br>
 http://localhost:8098/api/documentation<br>
 
